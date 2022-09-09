@@ -9,15 +9,23 @@ import cryptocode
 
 class CriptingInformation:
 
-    def cript(self, get_data):
-        self.get_data = get_data
-        encrypted_information = cryptocode.encrypt(get_data, "password")
+    def cript(self, data_for_cript, password):
+        self.get_data = data_for_cript
+        encrypted_information = cryptocode.encrypt(data_for_cript, str(password))
         return encrypted_information
+
+    def decript(self,data_for_decript, password):
+        self.data_for_decript = data_for_decript
+        decrypt_inpormation = cryptocode.decrypt(data_for_decript, str(password))
+        return decrypt_inpormation
 
 
 obj = CriptingInformation()
 data_for_cript = "example"
-print(obj.cript(data_for_cript))
+password = "test"
+
+crypting_information = obj.cript(data_for_cript, password)
+print(obj.decript(crypting_information, password))
 
 """str_encoded = cryptocode.encrypt("I am okay","wow")
 print(str_encoded)
