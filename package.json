@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "I don't know what is it",
   "main": "index.js",
+  "directories": {
+    "doc": "./client/docs"
+  },
   "scripts": {
     "build": "npm run build --prefix client",
     "dev-server": "npm run start --prefix client"
