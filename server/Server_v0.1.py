@@ -9,20 +9,22 @@ app = Flask(__name__)
 def index():
     return "home page"
 
-@app.route("/api/auth/login", methods=["POST"])
+@app.route("/api/auth/login", methods=["GET","POST"])
 def test():
-    reqest_data = request.get_json()
-    try:
-        login = reqest_data["login"]
-        password = reqest_data["password"]
-        secure_key = reqest_data["__secure_key"]
+    if request.method == "POST":
+        reqest_data = request.get_json()
+        try:
+            login = reqest_data["login"]
+            password = reqest_data["password"]
+            secure_key = reqest_data["__secure_key"]
 
-        return json.dumps({"access_token":"None",
-                           "logout_hash": "None",
-                           "user_id": 0})
+            return json.dumps({"access_token":"None",
+                               "logout_hash": "None",
+                               "user_id": 0})
 
-    except KeyError as e:
-        return json.dumps({"error":str(e), "error_code": 0})
+        except KeyError as e:
+            return json.dumps({"error":str(e), "error_code": 0})
+    return "This is POST"
 
 
 if __name__ == "__main__":
