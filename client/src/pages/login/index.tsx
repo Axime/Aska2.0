@@ -1,10 +1,30 @@
 import React from 'react';
 import InputWithLabel, { InputWithLabelProps } from '../../components/inputWithLabel/index';
+import useFetch from '../../hooks/useFetch';
 
 const LoginPage: React.FC = () => {
+  const { fetch: f } = useFetch();
   const submitHandler: React.FormEventHandler = (e): void => {
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
     e.preventDefault();
+    const form = e.currentTarget;
+    const values = Object.fromEntries([
+      ...form.querySelectorAll('input').entries()
+    ].map(e => e[1])
+      .filter(i => i.type !== 'submit')
+      .map(i => [i.name, i.value])
+    );
+    f('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        ...values,
+        __secure_key: '1bcd8735'
+      }),
+      headers: [[
+        'Content-Type',
+        'application/json'
+      ]]
+    }).then().catch(console.error);
   };
   return (
     <div className='login-page'>
@@ -13,18 +33,25 @@ const LoginPage: React.FC = () => {
         {(() => {
           const a: Array<Omit<InputWithLabelProps, 'id'>> = [{
             type: 'email',
-            name: 'email',
+            name: 'login',
             text: 'Логин',
-            autocomplete: 'email'
+            autocomplete: 'email',
+            required: true
           }, {
             name: 'password',
             type: 'password',
             text: 'Пароль',
-            autocomplete: 'password'
+            autocomplete: 'password',
+            required: true
           }];
           return a;
         })().map(e => (<React.Fragment key={e.name} >
-          <InputWithLabel id={`${e.name}__login-input`} name={e.name} text={e.text} />
+          <InputWithLabel
+            id={`${e.name}__login-input`}
+            name={e.name}
+            text={e.text}
+            required={e.required}
+          />
           <br />
         </React.Fragment>))}
         <input type="submit" value="Войти" />

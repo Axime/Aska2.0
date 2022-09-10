@@ -7,8 +7,9 @@
     "doc": "./client/docs"
   },
   "scripts": {
-    "build": "npm run build --prefix client",
-    "dev-server": "npm run start --prefix client"
+    "build-client": "npm run build --prefix client",
+    "dev-client-server": "npm run start --prefix client",
+    "start": "py main.py"
   },
   "repository": {
     "type": "git",

@@ -7,6 +7,7 @@ export interface InputWithLabelProps {
   placeholder?: string
   text: string
   autocomplete?: string
+  required?: boolean
 }
 
 const InputWithLabel: React.FC<InputWithLabelProps> = ({
@@ -16,7 +17,8 @@ const InputWithLabel: React.FC<InputWithLabelProps> = ({
   id,
   placeholder = '',
   text,
-  autocomplete = 'off'
+  autocomplete = 'off',
+  required = false
 }) => {
   const [value, setValue] = useState(init);
 
@@ -29,6 +31,7 @@ const InputWithLabel: React.FC<InputWithLabelProps> = ({
       value={value}
       placeholder={placeholder}
       autoComplete={autocomplete}
+      required={required}
     />
   </>);
 };
