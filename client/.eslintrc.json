@@ -15,8 +15,9 @@
         "ecmaVersion": "latest",
         "sourceType": "module",
         "project": [
-            "./client/tsconfig.json"
-        ]
+            "./tsconfig.json"
+        ],
+        "tsconfigRootDir": "./"
     },
     "plugins": [
         "react"
