@@ -27,7 +27,7 @@ If result is successful
 {
   "access_token": "string",
   "user_id": "number",
-  "logout_hash": "string",
+  "logout_hash": "string"
 }
 ```
 
