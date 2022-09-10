@@ -3,7 +3,7 @@ import json
 
 
 def login(app: Flask):
-    @app.route("/api/auth/login", methods=["POST"])
+    @app.post("/api/auth/login")
     def test():
         reqest_data = request.get_json()
         try:
@@ -13,8 +13,8 @@ def login(app: Flask):
             return json.dumps({
                 "access_token": "None",
                 "logout_hash": "None",
-                "user_id": 0}
-            ), 200, {
+                "user_id": 0
+            }), 200, {
                 'Content-Type': 'application/json'
             }
         except KeyError as e:

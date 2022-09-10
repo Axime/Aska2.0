@@ -1,9 +1,10 @@
 from flask import Flask, request
 import json
-import datausers
+from .datausers import add_user
 
-def registration_user(app: Flask):
-    @app.route("/api/auth/registration", methods=["POST"])
+
+def registration(app: Flask):
+    @app.post("/api/auth/registration")
     def user_reg():
         request_data = request.get_json()
         try:
@@ -14,17 +15,23 @@ def registration_user(app: Flask):
             password_repeat = request_data["password_repeat"]
             secure_key = request_data["__secure_key"]
 
-            req = first_name,last_name,email,password,password_repeat,secure_key
-            datausers.add_user("".join(req))
-            return "yes!"
+            req = first_name, last_name, email, password, password_repeat, secure_key
+            add_user("".join(req))
+            return json.dumps({
+                'access_token': '123',
+                'user_id': 1,
+                'logout_hash': '1234656'
+            }), 201, {
+                'Content-Type': 'application/json'
+            }
 
-#В случае ошибки выбрасываем это
+        # В случае ошибки выбрасываем это
         except KeyError as e:
             return json.dumps({
                 "error": str(e),
                 "error_code": 0
             }), 400, {
-                       'Content-Type': 'application/json'
-                   }
+                'Content-Type': 'application/json'
+            }
 
     return user_reg
