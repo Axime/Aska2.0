@@ -1,2 +1,1 @@
-const a = require('child_process');
-a.exec('py main.py')
+require('child_process').exec('py main.py');
