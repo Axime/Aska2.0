@@ -19,7 +19,7 @@ class CriptingInformation:
         decrypt_inpormation = cryptocode.decrypt(data_for_decript, str(password))
         return decrypt_inpormation
 
-
+"""
 obj = CriptingInformation()
 data_for_cript = "example"
 password = "test"
@@ -27,7 +27,7 @@ password = "test"
 crypting_information = obj.cript(data_for_cript, password)
 print(obj.decript(crypting_information, password))
 
-"""str_encoded = cryptocode.encrypt("I am okay","wow")
+str_encoded = cryptocode.encrypt("I am okay","wow")
 print(str_encoded)
 ## And then to decode it:
 str_decoded = cryptocode.decrypt(str_encoded, "wow")
