@@ -2,7 +2,7 @@ from flask import Flask, request
 import json
 
 
-def init(app: Flask):
+def login(app: Flask):
     @app.route("/api/auth/login", methods=["POST"])
     def test():
         reqest_data = request.get_json()

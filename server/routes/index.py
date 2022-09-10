@@ -1,8 +1,8 @@
-from .auth.login import init as login_init
+from .auth.login import login
 from flask import Flask
 
 def init(app: Flask):
     # auth
-    login_init(app)
+    login(app)
 
     # other handlers
