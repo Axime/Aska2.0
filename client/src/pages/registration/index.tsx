@@ -21,7 +21,7 @@ const RegistrationPage: React.FC = () => {
       alert('Пароли не совпадают');
       return;
     }
-    f('/api/auth/login', {
+    f('/api/auth/registration', {
       method: 'POST',
       body: JSON.stringify({
         ...values,
