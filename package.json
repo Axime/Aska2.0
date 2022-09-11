@@ -8,8 +8,10 @@
   },
   "scripts": {
     "build-client": "npm run build --prefix client",
-    "dev-client-server": "npm run start --prefix client",
-    "start": "py main.py"
+    "dev-server-client": "set DANGEROUSLY_DISABLE_HOST_CHECK=true&& npm run start --prefix client",
+    "start": "py main.py",
+    "dev-server": "set _DEBUG=true&&py main.py",
+    "dev": "npx concurrently \"npm run dev-server-client\" \"set _API_ONLY=true&&npm run dev-server\""
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,8 @@
     "url": "https://github.com/Axime/Aska2.0/issues"
   },
   "homepage": "https://github.com/Axime/Aska2.0#readme",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
 }
