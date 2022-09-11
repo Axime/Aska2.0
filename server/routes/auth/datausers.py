@@ -34,7 +34,7 @@ def list_users(command: str):
     else:
         try:
             op, value, table = command.split()
-            c.execute(f"SELECT rowid, * from {table} WHERE rowid {op} {value}")
+            c.execute(f"SELECT rowid, * from users WHERE rowid >= {value}")
         except Exception as e:
             print(e)
 
@@ -153,8 +153,6 @@ commands_function = {
     'table_list': table_list,
     'del_table': clear_table
 }
-
-one = "один"
-two = "два"
-req = one,two
-print(" ".join(req))
+t = True
+while t:
+    input_command()
