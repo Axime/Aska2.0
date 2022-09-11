@@ -2,6 +2,7 @@ from flask import Flask
 
 
 def client(app: Flask):
+    @app.get('/<string:manifest>.json')
     @app.get('/<string:s>/<string:s1>/<string:s2>')
     @app.get('/<string:s>/<string:s1>')
     @app.get('/<string:s>')
@@ -11,8 +12,11 @@ def client(app: Flask):
     @app.get('/static/css/<string:css>.css.<string:map>')
     @app.get('/')
     def client_handler(**a):
-        if (not a.get('js') and not a.get('css')):
+        if (not a.get('js') and not a.get('css') and not a.get('manifest')):
             with open('./client/build/index.html', 'r', encoding='utf-8') as f:
+                return f.read()
+        if (a.get('manifest')):
+            with open('./client/build/manifest.json') as f:
                 return f.read()
         for i in ('js', 'css'):
             if (a.get(i)):
