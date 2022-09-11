@@ -1,5 +1,7 @@
-from flask import Flask
-
+from http import cookies
+from flask import Flask, request
+from jwt.jwt import JWT
+import jwt
 
 def client(app: Flask):
     @app.get('/<string:manifest>.json')
@@ -14,7 +16,16 @@ def client(app: Flask):
     def client_handler(**a):
         if (not a.get('js') and not a.get('css') and not a.get('manifest')):
             with open('./client/build/index.html', 'r', encoding='utf-8') as f:
-                return f.read()
+                headers = {
+                    'Content-Type': 'text/html',
+                }
+                if (not request.cookies.get('__secure_key')):
+                    aaa = JWT()
+                    # class a(jwt.AbstractJWKBase):
+                        # pass
+                    # b = a()
+                    headers['Set-Cookie'] = F"__secure_key={aaa.encode({}, jwt.jwk.OctetJWK(b'123'))}; Max-Age=86400; samesite=lax"
+                return f.read(), 200, headers
         if (a.get('manifest')):
             with open('./client/build/manifest.json') as f:
                 return f.read()
@@ -23,5 +34,7 @@ def client(app: Flask):
                 url = './client/build/static/' + i + '/' + \
                     a.get(i) + '.' + i + ('.map' if a.get('map') else '')
                 with open(url, 'r', encoding='utf-8') as f:
-                    return f.read()
+                    return f.read(), 200, {
+                        'Content-Type': 'text/css' if i == 'js' else 'applicaiton/javascript'
+                    }
     return client_handler

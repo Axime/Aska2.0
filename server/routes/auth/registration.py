@@ -1,6 +1,8 @@
-import jwt
+from jwt.exceptions import JWTException
+from jwt.jwt import JWT
 import random
 from flask import Flask, request
+from jwt.jwk import OctetJWK
 import json
 import sqlite3
 
@@ -17,6 +19,14 @@ def registration_user(app: Flask):
         password_repeat = request_data["password_repeat"]
         secure_key = request_data["__secure_key"]
 
+        try:
+            c = JWT()
+            c.decode(secure_key, key=OctetJWK(b'123'))
+            return '{"user_id": 0, "access_token": "token","logout_hash":"hash"}'
+        except JWTException:
+            return '{"error": "secure_key is invalid", "error_code": ""}', 400, {
+                'Content-Type': 'application/json'
+            }
 
         #Заглушки
         user_token = "test_token"

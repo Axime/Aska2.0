@@ -18,7 +18,7 @@ const LoginPage: React.FC = () => {
       method: 'POST',
       body: JSON.stringify({
         ...values,
-        __secure_key: '1bcd8735'
+        __secure_key: document.cookie.split(';').map(c => c.split('=')).find(c => c[0] === '__secure_key')?.[1] ?? 'no_secure_key'
       }),
       headers: [[
         'Content-Type',
